@@ -684,6 +684,7 @@ export declare class Piezo {
 }
 
 export interface PinOption {
+    board?: Board | undefined;
     id?: number | string | undefined;
     pin: number | string;
     type?: string | undefined;
