@@ -17,6 +17,7 @@ export interface AccelerometerOption {
 }
 
 export interface AccelerometerGeneralOption {
+    board?: Board | undefined;
     controller?: string | undefined;
 }
 
