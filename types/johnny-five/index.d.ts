@@ -163,6 +163,7 @@ export interface ButtonOption {
     isPullup?: boolean | undefined;
     isPulldown?: boolean | undefined;
     holdtime?: number | undefined;
+    debounce?: number | undefined;
 }
 
 export declare class Button {
