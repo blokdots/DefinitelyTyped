@@ -133,12 +133,9 @@ board
             console.log(value);
         });
 
-        joystick.on('axismove', (err, value) => {
+        joystick.on('change', ({ x, y }) => {
             console.log('change');
-
-            console.log(joystick.axis);
-            console.log(joystick.raw);
-            console.log(err);
+            console.log(x, y);
             console.log(value);
         });
 

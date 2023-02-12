@@ -411,9 +411,8 @@ export declare class Joystick extends Emitter {
     raw: Array<number>;
 
     on(event: string, cb: () => void): this;
-    on(event: 'data', cb: (data: any) => void): this;
-    on(event: 'change', cb: () => void): this;
-    on(event: 'axismove', cb: (error: Error, date: Date) => void): this;
+    on(event: 'data', cb: ({ x, y }: { x: number; y: number }) => void): this;
+    on(event: 'change', cb: ({ x, y }: { x: number; y: number }) => void): this;
 }
 
 export interface LCDGeneralOption {
