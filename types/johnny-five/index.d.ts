@@ -11,6 +11,13 @@
 
 ///<reference types="node"/>
 
+import EventEmitter = require('events');
+
+declare class Emitter extends EventEmitter {
+    pause: () => void;
+    resume: () => void;
+}
+
 export interface AccelerometerOption {
     board?: Board | undefined;
     controller: string;
@@ -37,7 +44,7 @@ export interface AccelerometerMMA7361Option extends AccelerometerGeneralOption {
     sleepPin?: number | string | undefined;
 }
 
-export declare class Accelerometer {
+export declare class Accelerometer extends Emitter {
     constructor(
         option:
             | AccelerometerGeneralOption
@@ -74,7 +81,7 @@ export interface AltimeterOption {
     elevation?: number | undefined;
 }
 
-export declare class Altimeter {
+export declare class Altimeter extends Emitter {
     constructor(option: AltimeterOption);
 
     id: string;
@@ -86,7 +93,7 @@ export declare class Altimeter {
     on(event: 'data', cb: (data: any) => void): this;
 }
 
-export declare class Animation {
+export declare class Animation extends Emitter {
     constructor(option: Servo | Array<Servo>);
 
     target: number;
@@ -103,7 +110,7 @@ export declare class Animation {
 
     enqueue(segment: any): void;
     play(): void;
-    pause(): void;
+    // pause(): void; — already defined in Emitter. This is probably an oversight in johnny-five’s code.
     stop(): void;
     next(): void;
     speed(speed: Array<number>): void;
@@ -125,7 +132,7 @@ export interface BoardLogEvent {
     message: string;
 }
 
-export declare class Board {
+export declare class Board extends Emitter {
     constructor(option?: BoardOption);
 
     io: any;
@@ -166,7 +173,7 @@ export interface ButtonOption {
     debounce?: number | undefined;
 }
 
-export declare class Button {
+export declare class Button extends Emitter {
     constructor(pin: number | string | ButtonOption);
 
     id: string;
@@ -218,7 +225,7 @@ export interface CompassOption {
     gauss?: number | undefined;
 }
 
-export declare class Compass {
+export declare class Compass extends Emitter {
     constructor(option: CompassOption);
 
     readonly heading: number;
@@ -296,7 +303,7 @@ export interface GyroMPU6050Option extends GyroGeneralOption {
     sensitivity: number;
 }
 
-export declare class Gyro {
+export declare class Gyro extends Emitter {
     constructor(option: GyroGeneralOption | GyroAnalogOption | GyroMPU6050Option);
 
     id: string;
@@ -322,7 +329,7 @@ export interface HygrometerOption {
     freq?: number | undefined;
 }
 
-export declare class Hygrometer {
+export declare class Hygrometer extends Emitter {
     constructor(option: HygrometerOption);
 
     id: string;
@@ -343,7 +350,7 @@ export interface IMUMPU6050Option extends IMUGeneralOption {
     address: number;
 }
 
-export declare class IMU {
+export declare class IMU extends Emitter {
     constructor(option: IMUGeneralOption | IMUMPU6050Option);
 
     readonly accelerometer: Accelerometer;
@@ -394,7 +401,7 @@ export interface JoystickOption {
     invertY?: boolean | undefined;
 }
 
-export declare class Joystick {
+export declare class Joystick extends Emitter {
     constructor(option: JoystickOption);
 
     id: string;
@@ -584,7 +591,7 @@ export interface MotionOption {
     pin: number | string;
 }
 
-export declare class Motion {
+export declare class Motion extends Emitter {
     constructor(option: number | MotionOption);
     on(event: string, cb: () => void): this;
     on(event: 'data', cb: (data: any) => void): this;
@@ -611,7 +618,7 @@ export interface MotorOption {
     bits?: any;
 }
 
-export declare class Motor {
+export declare class Motor extends Emitter {
     constructor(option: number[] | MotorOption);
 
     readonly isOn: boolean;
@@ -647,7 +654,7 @@ export interface OrientiationOption {
     freq?: number | undefined;
 }
 
-export declare class Orientiation {
+export declare class Orientiation extends Emitter {
     constructor(option: OrientiationOption);
 
     readonly euler: any;
@@ -699,7 +706,7 @@ export interface PinState {
     analogChannel: number;
 }
 
-export declare class Pin {
+export declare class Pin extends Emitter {
     constructor(option: number | string | PinOption);
 
     id: number | string;
@@ -781,7 +788,7 @@ export interface SensorOption {
     enabled?: boolean | undefined;
 }
 
-export declare class Sensor {
+export declare class Sensor extends Emitter {
     constructor(option: number | string | SensorOption);
 
     id: string;
@@ -825,7 +832,7 @@ export interface ServoSweepOpts {
     step?: number | undefined;
 }
 
-export declare class Servo {
+export declare class Servo extends Emitter {
     constructor(option: number | string | ServoGeneralOption);
 
     id: string;
@@ -939,7 +946,7 @@ export interface SwitchOption {
     type?: 'NO' | 'NC' | undefined;
 }
 
-export declare class Switch {
+export declare class Switch extends Emitter {
     constructor(option: number | string | SwitchOption);
 
     id: string;
