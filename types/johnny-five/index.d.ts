@@ -18,6 +18,11 @@ declare class Emitter extends EventEmitter {
     resume: () => void;
 }
 
+declare class Withinable extends Emitter {
+    within(range: Array<number> | number, unit: string, callback: (value: any) => void): void;
+    within(range: Array<number> | number, callback: (value: any) => void): void;
+}
+
 export interface AccelerometerOption {
     board?: Board | undefined;
     controller: string;
@@ -749,7 +754,7 @@ export declare interface ProximityData {
     in: number;
 }
 
-export declare class Proximity {
+export declare class Proximity extends Withinable {
     constructor(option: number | ProximityOption);
     on(event: string, cb: () => void): this;
     on(event: 'data', cb: (data: ProximityData) => void): this;
@@ -787,7 +792,7 @@ export interface SensorOption {
     enabled?: boolean | undefined;
 }
 
-export declare class Sensor extends Emitter {
+export declare class Sensor extends Withinable {
     constructor(option: number | string | SensorOption);
 
     id: string;
@@ -965,7 +970,7 @@ export interface ThermometerOption {
     freq?: number | undefined;
 }
 
-export declare class Thermometer {
+export declare class Thermometer extends Withinable {
     constructor(option: ThermometerOption);
 
     id: string;
