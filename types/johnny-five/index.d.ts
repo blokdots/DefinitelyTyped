@@ -787,7 +787,7 @@ export interface Repl {
 export interface SensorOption {
     board?: Board | undefined;
     pin: number | string;
-    freq?: boolean | undefined;
+    freq?: number | undefined;
     threshold?: number | undefined;
     enabled?: boolean | undefined;
 }
